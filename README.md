@@ -24,7 +24,7 @@ After that I used nmap to do port scan on all 65 536 TCP ports
 The scan results gave away a lot of valuable information about services running on target machine. There is no authentication required to access the administrative functions, default credentials are not changed and there are several outdated versions running. Snort didn’t alert about anything, because port scan detection configurations has been commented out from snort.conf on default. I didn’t bother to change snort.conf at this point, so I moved on.
 
 
-#1.Exploiting Elasticsearch v1.1.1 (CVE-2014-3120)
+#1. Exploiting Elasticsearch v1.1.1 (CVE-2014-3120)
 ------
 
 Googling around possible vulnerabilities (on services that nmap gave away), I decided to tackle Elasticsearch first. I went to check out if Metasploit already had an exploit for this vulnerability.
