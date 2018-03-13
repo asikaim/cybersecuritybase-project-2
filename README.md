@@ -24,7 +24,7 @@ After that I used nmap to do port scan on all 65 536 TCP ports
 The scan results gave away a lot of valuable information about services running on target machine. There is no authentication required to access the administrative functions, default credentials are not changed and there are several outdated versions running. Snort didn’t alert about anything, because port scan detection configurations has been commented out from snort.conf on default. I didn’t bother to change snort.conf at this point, so I moved on.
 
 
-1.Exploiting Elasticsearch v1.1.1 (CVE-2014-3120)
+#1.Exploiting Elasticsearch v1.1.1 (CVE-2014-3120)
 ------
 
 Googling around possible vulnerabilities (on services that nmap gave away), I decided to tackle Elasticsearch first. I went to check out if Metasploit already had an exploit for this vulnerability.
@@ -44,7 +44,7 @@ Snort didn’t log any alerts, but after uncommenting line 811 (depends about ru
 `SERVER-OTHER ElasticSearch script remote code execution attempt [**] [Classification: Attempted User Privilege Gain]`
 
 
-2. Exploiting ManageEngine (CVE-2015-8249)
+#2. Exploiting ManageEngine (CVE-2015-8249)
 ------
 
 Nmap showed us that Metasploitable3 is running Apache HTTPD service on port 8020. Using browser to access https://172.28.128.3:8020 we can verify that Apache is running ManageEngine Desktop Central 9 with default admin password. Also, administration panel shows us that the build version is 91084. Google shows us that this build has known vulnerabilities which can easily be exploited on Metasploit.
@@ -55,7 +55,7 @@ Once again, Snort doesn’t alert about anything, but this can easily be changed
 `SERVER-WEBAPP ManageEngine Desktop Central FileUploadServlet directory traversal attempt [**] [Classification: Web Application Attack]`
 
 
-3. Exploiting WordPress (CVE-2016-1209)
+#3. Exploiting WordPress (CVE-2016-1209)
 ------
 
 After seeing previous Metasploitable exploits, I figured out that there must be a weakness on some of the forms. I had some problems running this exploit until I figured that my TARGETURI and FORM_PATH was wrong. Google was a great help here. Previously I didn’t even think about those pre-installed flags that were made into Metasploitable3.
@@ -66,7 +66,7 @@ After uncommenting line 2284 in server-webapp.rules and adding the port 8585 int
 `SERVER-WEBAPP WordPress Ninja Forms nf_async_upload arbitrary PHP file upload attempt [**] [Classification: Attempted Administrator Privilege Gain]`
 
 
-4. Exploiting Apache Struts (CVE-2016-3087
+#4. Exploiting Apache Struts (CVE-2016-3087
 ------
 
 I tried several ways to exploit Apache on port 8282 before I found out that Metasploitable3 had a legit list of vulnerabilities in GitHub (https://github.com/rapid7/metasploitable3/wiki/Vulnerabilities#apache-struts). No need to Google around. I feel so stupid now. Oh well… Let’s do this. 
@@ -77,7 +77,7 @@ We can get Snort to figure this out by uncommenting lines 118 and 119 from serve
 `SERVER-APACHE Apache Struts remote code execution attempt [**] [Classification: Attempted Administrator Privilege Gain]`
 
 
-5. Bruteforcing SSH
+#5. Bruteforcing SSH
 ------
 
 It’s probably a good idea to grab some user names while we are here. I pasted the user names into file that I named users.txt. 
